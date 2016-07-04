@@ -1,4 +1,6 @@
 # TIL-Wiki
+TIL = Today I Learned
+
 ## MAIN
 - 프로그래밍에 대해 배운 것을 기록하고 찾기 쉽게 분류한다.
 
