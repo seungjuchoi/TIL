@@ -8,3 +8,4 @@ TIL = Today I Learned
 ## RULES
 - 최대한 간결하게 적어 가독성을 높인다.
 - 쉽게 찾아볼 수 있는 Common한 내용은 지양하고 찾아볼만한 것을 위주로 적는다.
+- [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/)을 따른다.
