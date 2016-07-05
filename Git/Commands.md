@@ -33,6 +33,37 @@ git stash pop | (적용 후 삭제)
 git push origin :heads/{branch name} | Branch 삭제
 git push origin :tags/{tag name} | Branch 삭제
 
+## Gerrit의 업데이트가 되지 않을 경우
+```bash
+ssh -p <port> <IP> gerrit flush-caches
+```
+
+## Git 추가
+ssh -p <Port> <IP> gerrit create-project --name <Name> --branch <Branch> --description "'<Description>'"
+
+
+## 비어 있는 Git Project 생성 후 Empty Commit 생성 
+```bash
+	git init
+	git commit --allow-empty -m "Initial commit with no content"
+	git push ssh://xxx.com:12345/platform/xxxx.git HEAD:<Branch>
+```
+
+## Thread활용하여 Repo command 사용하기
+```bash
+repo forall -c 'while [ $(ps -C ssh | wc -l) -gt 10 ]; do sleep 1; done; git push &'
+```
+
+## Manifest revision 만들기
+```bash
+repo manifest -r -o xxx.xml
+```
+
+## sed 명령어를 활용한 Local To Remote Push
+예
+```bash
+repo forall -c 'cat -v -t .git/config | grep url | sed -e "s/\^Iurl = ssh:\/\/192.168.1.11:29418\///g"| xargs -i git push ssh://seungju24.choi@111.111.111.111:12345/{} HEAD:refs/heads/<Branch Name>'
+```
 
 ## "repo sync ."와 "git pull" 차이
 repo sync . 은 git fetch 후 git rebase 를 하는것과 동일한 기능을 하지만 git pull은 git fetch 후 git merge를 한다. 
@@ -40,4 +71,3 @@ git pull을 사용하여 소스를 가져올경우 merge commit이 생기기 때
 이때 주의사항으로는 repo sync . 은 .repo 폴더 내에 manifest.xml을 기준으로 하기때문에 다른 branch의 소스를 가져올경우 manifest.xml 내에 brach의 merge 내용을 확인할 필요가 있다.
 git pull에 대한 자세한 내용은 다음 링크 참조 
 [Git pull](http://www.kernel.org/pub/software/scm/git/docs/git-pull.html)
-
