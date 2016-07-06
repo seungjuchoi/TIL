@@ -37,6 +37,6 @@ heap을 공유한다. 이 공유되는 부분를 임계영역이라고 하고 Lo
   * 한번 배워두면 다른 언어의 UI도 개발할 수 있다.
   * Event는 Queue를 사용하며 Message화 된다.
   * Event를 등록해서 해당 Function이 호출 되도록 한다.
-  ![Alt text](/python/pyQT.jpg)
+  * ![Alt text](/python/pyQT.jpg)
 * Event를 감시하기위한 Queue 바라보기가 시작됨. 이후 Line은 실행되지 않음.
   * app.exec() #loop queue memory
