@@ -42,7 +42,7 @@ pass
   * 2.7에 최적화 되어 있다.
   * Build 대상은 Java나 C다. Python이 아니다.
   * Build 구조도
-![Alt text](/python/SConstruct.jpg)
+  * ![Alt text](/python/Sconstruct.jpg)
 * SConstruct 파일은 Python Source File Type이다. print(“red”)를 추가로 작성해도 scons 명령어 수행시 동작함을 알 수 있었다.
 * easy_install로 설치한 package의 경우 egg 파일이 site­packages에 설치되며 별도의
 Path설정(파일명까지)을 해야 사용 가능한 불편함이 있다.
