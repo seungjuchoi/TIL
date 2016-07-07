@@ -72,21 +72,20 @@ kobject_uevent()-->kobject_uevent_env()-->netlink_broadcast_filtered():netlink s
  : 응용프로그램이 드라이버를 호출할수 있는 방법
 
 * 장치 파일 생성
+ ```
+ mknod /dev/mydrv c 240 0
+ ```
+  * struct inode: (디스크에 저장된 파일시스템정보를  갖는다)
     ```
-    mknod /dev/mydrv c 240 0
+    dev_t	i_rdev ;// [주번호(12bit) | 부번호(20bit) ]
+                     :   240             : 0 
     ```
-    * struct inode : 디스크에 저장된 파일시스템정보를
-                      갖는다
-        ```
-        dev_t	i_rdev ;// [주번호(12bit) | 부번호(20bit) ]
-                            :   240             : 0 
-        ```
-    * struct file : open()시 생성,close()시 소멸
+  * struct file: open()시 생성,close()시 소멸
 
 * 드라이버 설치
     ```
     insmod mydrv.ko ==> 커널의 240번 테이블에 file_operations구조체를 등록
-     ```
+    ```
 * 응용프로그램 실행
     ```
        ./test_mydrv
