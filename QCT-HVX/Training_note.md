@@ -4,11 +4,13 @@
 * filter가 10개 정도 됨. 예제는 Gaussian으로 할 예정
 * Eclipse는 문제가 있음.
 * Stream mode를 Target에서 가장 빨리 볼 수 있는 방법을 CTO에서는 가장 궁금해하고 있음.
+
 ## Question
 * Meaning of Local variable vs Gloval variable in HVX
 	* Local Variable이 동작안해서 현재는 Global로 옮겨서 해야하는 상황이다.
 * RGB2LAB
 * filter를 5by5 filter한다는 의미
+
 ## PPT Contents
 * Streaming : Computer vision test app : HQV framework
 	* Streaming을 제외한 나머지 두가지는 현재 시연 가능하고 사용가능하다. 8992에서도 가능
