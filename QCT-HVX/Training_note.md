@@ -1,11 +1,9 @@
-# QCT HVX Training
+# QCT HVX Training (2015.07)
 ## Comment
 * 성능이 좋은 데, Power 소모를 아직 측정하지 않음.
 * filter가 10개 정도 됨. 예제는 Gaussian으로 할 예정
 * Eclipse는 문제가 있음.
 * Stream mode를 Target에서 가장 빨리 볼 수 있는 방법을 CTO에서는 가장 궁금해하고 있음.
-* CTO에서는 Stream mode로 Video를 땡겨오는 것이 핵심이라고 생각
-* CTO에서는 CL대비 얼마 Neon 대비 얼마의 성능을 가지고 있는지 알고 싶어함.
 ## Question
 * Meaning of Local variable vs Gloval variable in HVX
 	* Local Variable이 동작안해서 현재는 Global로 옮겨서 해야하는 상황이다.
