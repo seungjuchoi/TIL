@@ -1,5 +1,5 @@
 # *****args, ******kwargs
-## *****args
+## **args
 list 혹은 tuple을 함수의 parameter로 취할 수 있다. 선언을 특별히 하거나 일반 함수에 넣을 수 있다.
 
 ### 일반 함수에 넣는 방법
@@ -25,7 +25,7 @@ def print_everything(*args):
 args란 단어를 지킬 필요는 없다.
 
 
-## ******kwargs
+## **kwargs
 dictionary를 parameter로 취할 수 있다. kw는 keyword에 약자이고 value뿐만 아니라 key가 추가로 있다고 이해하자. 동일하게 두가지 방법이 있다.
 
 ### 일반 함수에 넣는 방법
