@@ -1,5 +1,5 @@
-# *****args, ******kwargs
-## **args
+# ****args, *****kwargs
+## *args
 list 혹은 tuple을 함수의 parameter로 취할 수 있다. 선언을 특별히 하거나 일반 함수에 넣을 수 있다.
 
 ### 일반 함수에 넣는 방법
@@ -56,7 +56,7 @@ table_things(apple = 'fruit', cabbage = 'vegetable')
 이 또한 kwargs란 단어를 지킬 필요없다.
 
 
-## *****args와 ******kwargs의 관용적 표현
+## ****args와 *****kwargs의 관용적 표현
 ```python
 def test_func(*args, **kwargs):
     print(args)
