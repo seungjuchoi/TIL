@@ -58,7 +58,7 @@ print(b) # [100,2,3]
 * 인자를 모두 Dictionary로 받을 수 있다.
   * def fn(**arg): # arg=(name=”aa”,age=32) 이렇게 됨.
   * fn(name=”aa”,age=32)
-  * fn(**myDic) # 이렇게 넘길 수도 있음.
+  * fn(**myDic) #이렇게 넘길 수도 있음.
 * 가변 인자와 Dictionary 인자는 뒤로 넘겨야 한다. 그래야 아다리가 맞는다.
   * def fn(a,*b,**c):
   * fn(10,3,4,’a’=’10’,’b’=’str’) #a=10, b=(3,4) c={’a’=’10’,’b’=’str’}
