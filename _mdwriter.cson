@@ -11,7 +11,7 @@
 
 # static engine of your blog
 # e.g. one of: general, html, jekyll, octopress, hexo
-siteEngine: "jekyll"
+siteEngine: "general"
 # website URL of your blog
 siteUrl: ""
 
