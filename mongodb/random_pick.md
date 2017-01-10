@@ -4,12 +4,14 @@ Random하게 doc를 선택하여 사용자에게 contents를 제공하려 할 �
 
 ## 방법론 소개
 1. random 수를 골라 skip하기
+
   ```javascript
   var query = { state: 'OK' };
   var n = db.myCollection.count(query);
   var r = Math.floor(Math.random() * n);
   var randomElement = db.myCollection.find(query).limit(1).skip(r);
   ```
+
   간편하지만 전문성이 떨어지고 속도가 느리다. 그리고 count와 find 사이에 delete가 진행될 경우 동시성 문제가 발생한다.([링크](http://stackoverflow.com/questions/2824157/random-record-from-mongodb#comment2895058_2824166)) 이런 coding은 지양해야한다. 그리고 비슷한 시간대에 random함수를 돌려서 그런지 중복이되는 느낌을 지우기 힘들다.
 2. random을 위한 index를 하나 더 만들기
   - query 방법 1
