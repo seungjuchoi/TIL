@@ -34,7 +34,7 @@ Random하게 doc를 선택하여 사용자에게 contents를 제공하려 할 �
   ```
 
   속도는 첫번째 방법보다는 빠른 편, random때문에 index를 만들어야 할까? 속도는 query 방법2가 셋중에 그나마 빠르다고 한다. [링크](http://bdadam.com/blog/finding-a-random-document-in-mongodb.html)
-3. aggregate를 활용한 방법 3.2 mongodb
+3. aggregate를 활용한 방법 (3.2 mongodb부터 가능)
 ```javascript
 db.mycoll.aggregate(
    { $sample: { size: 1 } }
