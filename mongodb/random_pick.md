@@ -44,6 +44,6 @@ aggregation pipeline인 sample을 사용하는 방법으로 간편하고 효율�
 잘 설명된 블로그 포스트를 참고하자. [링크](https://www.mongodb.com/blog/post/how-to-perform-random-queries-on-mongodb)
 
 ## 참고 link
-http://bdadam.com/blog/finding-a-random-document-in-mongodb.html
-http://stackoverflow.com/questions/2824157/random-record-from-mongodb
-https://www.mongodb.com/blog/post/how-to-perform-random-queries-on-mongodb
+- http://bdadam.com/blog/finding-a-random-document-in-mongodb.html
+- http://stackoverflow.com/questions/2824157/random-record-from-mongodb
+- https://www.mongodb.com/blog/post/how-to-perform-random-queries-on-mongodb
