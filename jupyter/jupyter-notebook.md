@@ -102,3 +102,7 @@ $$
   * table 구분자 |를 사용하므로 이 대신 \vert를 사용해아 한다.
   * github page에서는 위 code가 정상적으로 동작하나 github.com에서 직접 파일을 보면 제대로 보이진 않는다. 이 page에서는 mathjax가 동작하지 않는다.
   * 관련 내용: https://kramdown.gettalong.org/syntax.html#math-blocks
+
+## 예시 page
+- https://github.com/karpathy/karpathy.github.io/blob/master/_posts/2016-05-31-rl.markdown
+- 이 page에서 어떻게 수식을 표현하고 어떤 config를 사용했는지 파악하자. jekyll에 github page 조합이다.
