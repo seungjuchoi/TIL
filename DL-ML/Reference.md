@@ -2,7 +2,7 @@
 - Tensor Flow
 - Torch
 - Caffe
-- Theano 티아노
+- Theano 테아노
 
 ## Site
 - https://tensorflow.blog/1장-실수치-회로-해커가-알려주는-뉴럴-네트워크/
