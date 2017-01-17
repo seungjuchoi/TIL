@@ -31,3 +31,27 @@
 ## Deep learning
 - ML의 한 분야
 - NN,CNN,Deep brief 등등
+
+## Tensorflow Code 구현
+### 자료형
+tensor는 tensorflow의 자료형이고 연산을 위해서는 이것으로 wrapping이 필요하다. 즉, python 자료형을 Tensorflow 자료형으로 바꾸는 작업이다.
+
+아래 3가지로 정의할 수 있다.
+- rank (차원) dimension
+- shape (행과 열의 길이) 예) 3x4
+- type (데이터 형식)
+
+#### Type의 종류
+```python
+x = tf.constant(3, name="x")
+y = tf.Variable(x+9,name=y)
+```
+
+### Session
+- session이 생성되어 실행되기 전까지 수행되지 않는다.
+- print는 python 자료형을 출력하기 위한 method다. 연산에 대한 결과를 보려면 session을 만들어 수행하고 print해야 한다.
+> 사전적 의미: 여러 개의 connection을 묶어서 부르는 말이다. connection 보다는 상위 개념이라는 정도로 알고 있자.
+
+### Kernel
+일반적인 의미와 달리 tensor에서는 '명령어를 구현한 것'이라고 쓰인다.
+예를 들어 gpu kernel과 cpu kernel이 있다고 함.
