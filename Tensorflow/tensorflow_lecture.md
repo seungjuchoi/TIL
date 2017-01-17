@@ -36,7 +36,7 @@
 ### 자료형
 tensor는 tensorflow의 자료형이고 연산을 위해서는 이것으로 wrapping이 필요하다. 즉, python 자료형을 Tensorflow 자료형으로 바꾸는 작업이다.
 
-아래 3가지로 정의할 수 있다.
+아래 3가지로 정의할 수 있다. 사실 numpy의 array가 가지는 속성이다.
 - rank (차원) dimension
 - shape (행과 열의 길이) 예) 3x4
 - type (데이터 형식)
@@ -45,9 +45,13 @@ tensor는 tensorflow의 자료형이고 연산을 위해서는 이것으로 wrap
 ```python
 x = tf.constant(3, name="x")
 y = tf.Variable(x+9,name=y)
+ph = tf.placeholder("uint8", [None,None,3])
+ph = tf.placeholder("int32")
 ```
+tf.placeholder는 변수를 저장하는 공간을 의미하고 자료형만 명시하고 data를 넣지 않을 수도 있다.  
 
 ### Session
+- Client 프로그램(ex. python environment)이 Tensorflow 런타임 시스템과 통신하기 위해서 세션이 생성되어야 한다.
 - session이 생성되어 실행되기 전까지 수행되지 않는다.
 - print는 python 자료형을 출력하기 위한 method다. 연산에 대한 결과를 보려면 session을 만들어 수행하고 print해야 한다.
 > 사전적 의미: 여러 개의 connection을 묶어서 부르는 말이다. connection 보다는 상위 개념이라는 정도로 알고 있자.
@@ -55,3 +59,49 @@ y = tf.Variable(x+9,name=y)
 ### Kernel
 일반적인 의미와 달리 tensor에서는 '명령어를 구현한 것'이라고 쓰인다.
 예를 들어 gpu kernel과 cpu kernel이 있다고 함.
+
+### Dataflow graph
+- Node는 산술 연산자 (+,-,/,\*)
+- Edge는 Tensor라고 명명된 데이터 집합을 의미하며 피연산자
+- Dataflow를 실행 관점(GPU, CPU)으로 나눠서 설계해야 한다. Multi-thread가 프로그램에 영향을 미치는 것 때문에 동시성 문제가 발생하고 semaphore등을 사용해야하는 것처럼 Tensorflow에서도 core에 대한 부분을 Model 설계시 고려해야한다는 의미이다.
+- Server가 한대인 경우에는 Thread 설계로 가능하나 Server가 여러대인경우에는 Scalable를 고려해야 함. (병렬 computing: 하둡, Tensorflow)
+
+#### Edge 종류
+- 일반 Edge
+  - 입력값이 Tensor이고 하나의 명령어(Node)에 대한 출력값은 다른 명령어의 입력값이 된다. Tensor의 전달 정도로 생각하자.
+- 특수 Edge
+  - 두 노드 간의 제어 의존성을 정의함
+  - 연산의 우선 순위를 표현
+
+
+## Tensorflow code
+1차원 텐서
+```python
+import numpy as np
+tensor_1d = np.array([1.4,1,3.0,23.99])
+print(tensor_1d.ndim)
+print(tensor_1d.shape)
+print(tensor_1d.dtype)
+tf_tensor = tf.convert_to_tensor(tensor_1d,dtype=tf.float64)
+with tf.Session() as sess:
+    print(sess.run(tf_tensor))
+    print(sess.run(tf_tensor[1]))
+    print(sess.run(tf_tensor[2]))
+```
+numpy array를 바로 tensor로 wrapping할 수 있다.
+
+2차원 텐서
+```python
+mat1 = np.array([(1,2,3),(4,5,6),(4,5,6)],dtype='int32')
+mat2 = np.array([(5,6,7),(7,8,9),(4,5,6)],dtype='int32')
+mat1 = tf.constant(mat1)
+mat2 = tf.constant(mat2)
+mat_mul = tf.matmul(mat1,mat2)
+mat_sum = tf.add(mat1,mat2)
+with tf.Session() as sess:
+    print(sess.run(mat_mul))
+```
+- 참고로 행렬의 곱을 할 수 없는 행렬인 경우 Error가 발생한다.
+- dtype을 int32로 생성하는 이유는 default가 int64이고 이는 지원하는 dtype이 아니기 때문이다. float16, float32, float64, int32, complex64, complex128 중에 하나여야 한다.
+
+### bmp를 활용한 3차원 image crop 예제

@@ -33,15 +33,24 @@ $ docker run -itp 8888:8888 gcr.io/tensorflow/tensorflow
 ```bash
 $ docker exec -it  <container name> bash #접속
 $ docker attach ubuntu # 접속만 함
+$ docker ps 실행중인 container
 ```
 - '-it'는 image와 terminal을 뜻하는 줄 알았지만 아님 i는 interactive를 의미하고 attach하지 않아도 STDIN를 유지하는 것 t는 tty 할당
 - attach로만 붙으면 shell도 실행되지 않음.
 
 
-## 기타
-실행중인 process 확인
+폴더연결
 ```bash
-$ docker ps -a
+$ docker run -v $HOSTDIR:$DOCKERDIR
+$ docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-torrent
+
+```
+'-v' 옵션을 사용한다.
+
+복사와 출력
+```bash
+$ docker cp ./a.jpg tensor:/root/# 컨테이너 내의 파일을 호스트로 복사한다.
+$ docker export # 컨테이너 파일 시스템을 tarball로 출력한다.
 ```
 
 docker help
