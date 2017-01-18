@@ -43,7 +43,6 @@ $ docker ps 실행중인 container
 ```bash
 $ docker run -v $HOSTDIR:$DOCKERDIR
 $ docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-torrent
-
 ```
 '-v' 옵션을 사용한다.
 
@@ -52,6 +51,7 @@ $ docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-
 $ docker cp ./a.jpg tensor:/root/# 컨테이너 내의 파일을 호스트로 복사한다.
 $ docker export # 컨테이너 파일 시스템을 tarball로 출력한다.
 ```
+> __Important__: 생성된 파일은 따로 보관하거나 연결된 folder에 저장하지 않으면 docker container 정지시 사라진다.
 
 docker help
 ```bash

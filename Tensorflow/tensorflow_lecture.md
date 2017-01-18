@@ -105,3 +105,63 @@ with tf.Session() as sess:
 - dtype을 int32로 생성하는 이유는 default가 int64이고 이는 지원하는 dtype이 아니기 때문이다. float16, float32, float64, int32, complex64, complex128 중에 하나여야 한다.
 
 ### bmp를 활용한 3차원 image crop 예제
+```python
+import tensorflow as tf
+import matplotlib.image as mp_image
+import matplotlib.pyplot as plt
+
+filename = 'packt.jpeg'
+input_image = mp_image.imread(filename)
+
+my_image = tf.placeholder("uint8",[None,None,3])
+
+slice = tf.slice(my_image,[10,0,0],[16,-1,-1])
+
+with tf.Session() as sess:
+    result = sess.run(slice,feed_dict={my_image:input_image})
+    print(result.shape)
+plt.imshow(result)
+plt.show()
+```
+- pilow package가 필요했다.
+- plt는 show함수가 호출되어야 출력된다.
+- feed_dict를 이용해서 runtime시 parameter를 전달할 수 있다.
+
+### 복소수 표현
+```python
+import tensorflow as tf
+x = 5. + 4j
+print (x)
+
+x = complex(5,4)
+print (x)
+print (x.imag)
+print (x.real)
+```
+complex를 이용하거나 더하기 j방법을 이용하거나
+
+### 데이터 모델 함수 예제
+```python
+import tensorflow as tf
+import numpy as np
+
+number_of_points = 1000
+
+x_point = []
+y_point = []
+
+a = 0.22
+b = 0.78
+
+for i in range(number_of_points):
+    x = np.random.normal(0.0,0.5)
+    y = a*x + b + np.random.normal(0.0,0.1)
+    x_point.append([x])
+    y_point.append([y])
+
+plt.plot(x_point,y_point, 'x', label='Input Data')
+plt.legend()
+plt.show()
+```
+![](/images/2017/01/normal_distribution.png)
+- plt.plot의 사용법에 주목하자.
