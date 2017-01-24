@@ -16,7 +16,7 @@ EM을 변형한 것이라고 볼 때 이 알고리즘을 이걸 완벽히 이해
 - Gerneralized linear Module이 연속적인 것 뿐  
 ![](/images/2017/01/Generalized Linear Model.png)
 - DNN은 통계적으로보면 GLM의 중첩. 반복적인 GLM이라고 볼 수 있음.
-- 통계와 딥러닝
+- 통계와 딥러닝  
 ![](/images/2017/01/statistics_DNN.png)
 - 통계 영역에서 이미 연구된 것들을 토대로 영감을 받을 수 있다. 통계에서는 있지만 딥러닝에서는 없는 영역을 살펴보는 것.
 
@@ -38,6 +38,3 @@ EM을 변형한 것이라고 볼 때 이 알고리즘을 이걸 완벽히 이해
 Generalized Linear Model은 Linear, Logistic, Possion, Gamma regression을 포함한다.
 아래는 헤깔릴 수 있는 두 용어 정리  
 ![](/images/2017/01/GLM.png)
-
-
-#### 추가 조사 내용
