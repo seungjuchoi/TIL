@@ -13,6 +13,7 @@
 - https://tensorflow.blog/2016/05/04/stanford-cs231n-%EA%B0%95%EC%A2%8C%EA%B0%80-%EB%8B%AB%ED%98%94%EC%8A%B5%EB%8B%88%EB%8B%A4/#comment-128
 - http://aikorea.org/
 - http://aikorea.org/awesome-rl/
+- http://hackaday.com/2016/12/21/practical-deep-learning/
 
 ## Book
 - Rainforcement Learning https://www.gitbook.com/book/dnddnjs/rl/details
