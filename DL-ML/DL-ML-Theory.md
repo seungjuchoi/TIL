@@ -117,7 +117,7 @@ CIFAR-10 데이터 셋의 경우, 파라미터(parameter/weight) 행렬은 크�
   - 해석적 gradient는 간단한 공식을 유도할 때나 쉽고 거대하고 복잡한 식에는 빠르지 않을 것 같다고 생각하기 쉽다. 하지만 복잡한 저체회로와 상관없이 각각의 게이트는 스스로의 문제에만 집중한다는 것 알 수 있다. 전체 회로와 큰 연관성이 없다는 말이다.
 
 ## Gradient descent (기울기 하강)
-### 단순 하강
+### Simple gradient (단순 하강)
 ```
 while True:
   weights_grad = evaluate_gradient(loss_fun, data, weights)
@@ -127,7 +127,7 @@ while True:
 - 현재로는 이 gradient 하강이 손실함수를 최적화하는 용도로 많이 쓰인다.
 - 그라디언트(gradient)를 따라서 움직인다는 기본적인 개념은 다른 알고리즘을 더한다고 하더라도 변하지 않는다.
 
-### 미니배치 하강
+### Mini-batch gradient (미니배치 하강)
 ```
 while True:
   data_batch = sample_training_data(data, 256) # 예제 256개짜리 미니배치(mini-batch)
