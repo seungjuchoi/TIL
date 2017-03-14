@@ -48,9 +48,9 @@
 - Machine learning의 일종으로 확률적 분류 방법이다.
 - Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 비슷한 방법을 취하지만 훨씬 복잡하다.
 ## Linear Classifier 구성
-- Score function: 선형 함수, Pixel data를 넣으면 class score로 계산해주는 파라미터화된(w) 함수, 복잡한 구조로 계속 변경됨.
-- Loss function: 특정 paraemter를 적용시켜 score함수를 만들었을 때 실제 데이터와 얼마나 차이나는 가에 대해 parameter의 정확도를 측정하는 함수 (SVM/Softmax)
-- Optimazation: 은 Loss 함수가 최소화되는 최적은 Parameter값을 찾는 것.
+1. Score function: 선형 함수, Pixel data를 넣으면 class score로 계산해주는 파라미터화된(w) 함수, 복잡한 구조로 계속 변경됨.
+2. Loss function: 특정 paraemter를 적용시켜 score함수를 만들었을 때 실제 데이터와 얼마나 차이나는 가에 대해 parameter의 정확도를 측정하는 함수 (SVM/Softmax)
+3. Optimazation: 은 Loss 함수가 최소화되는 최적은 Parameter값을 찾는 것.
 
 ### Score 함수
 ![](http://aikorea.org/cs231n/assets/imagemap.jpg)
