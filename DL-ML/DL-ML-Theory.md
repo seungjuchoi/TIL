@@ -1,19 +1,8 @@
 # Intro
 - Image-net 1.5milion  1000 object구분하는 것, 2012년에서는 CNN이 winner. 2012년 이후로는 모두 CNN위주가 된다. 이 분야에서 Back propergation의 본격적으로 쓰이기 시작했다.
 
-
-# Classifier
-## Linear classifier
-- Machine learning의 일종으로 확률적 분류 방법이다.
-- Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 비슷한 방법을 취하지만 훨씬 복잡하다.
-## Softmax classifier
-SVM만큼 유명한 분류기로 SVM과 loss 함수가 다르다. Multiple class의 일반화다. SVM과 달리 각 class마다 output을 scores로 다루는 데 좀더 직관적인 output을 주고 짧은 확률적 해석을 제공한다.
-
-# 학습 알고리즘
-## 단순 비교
-- 두개의 이미지를 비교하는 간단한 방법은 빼는 것
-- 두 이미지가 똑같을 경우에는 결과가 0일 것이고, 두 이미지가 매우 다르다면 결과값이 클 것이다.  
-### Distance 법
+# 개념 설명
+## Distance 법
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/283px-Manhattan_distance.svg.png)
     - L1 Distance: Manhattan (Blue line)  
 ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/4704625b5a645aae2cd0177cab7e8892b8f962bf)
@@ -21,7 +10,23 @@ SVM만큼 유명한 분류기로 SVM과 loss 함수가 다르다. Multiple class
     - L2 Distance: **Euclidean** (Green line)  
     ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/dc0281a964ec758cca02ab9ef91a7f54ac00d4b7)
 
+## Test set and Validation set
+- k-nearest neighbor 분류기에서 k는 유효한 데이터set에 의해 튜닝되는 Hyper parameter이다.
+- 머신러닝 알고리즘을 디자인할 때, 테스트 셋은 매우 귀한 리소스이고, 이론적으로는 실제로 알고리즘을 평가할 때인 맨 마지막 단 한 번을 제외하고는 절대 쳐다봐서는 안 된다.
+- 우리가 테스트 셋을 사용하여 Hyper parameter 들을 튜닝했다는 것은 곧 우리가 테스트 셋을 마치 학습 데이터셋(트레이닝 셋)처럼 사용한 것이고, 우리 모델의 테스트 셋에서의 성능은 실제로 다른 데이터에 적용할 때에 비해 너무 낙관적이게 되어버린다. 이것을 테스트 셋에 overfit이라고 한다.
+- 해결책1: 검증 셋(validation set) 으로 불리는, 약간 적은 수의 트레이닝 셋과 나머지로 나눈다. CIFAR-10 데이터셋을 예로 들면, 학습 이미지들 중에 49,000 장을 트레이닝 셋으로 삼고, 나머지 1,000 개를 검증으로 남겨둔다.
+- 해결책2: 교차 검증을 한다. 검증 Set을 바꿔가면서 검증한다. 보통 교차 검증보다 하나의 검증 셋을 정해놓는 것을 선호한다. 계산량이 많기때문이다.
+- Hyper parameter 개수가 매우 많다면, 검증 데이터셋의 크기를 늘리는게 좋다.
+
+# 학습 알고리즘
+## 단순 비교
+- 두개의 이미지를 비교하는 간단한 방법은 빼는 것
+- 두 이미지가 똑같을 경우에는 결과가 0일 것이고, 두 이미지가 매우 다르다면 결과값이 클 것이다.
+- Distance 법을 이용해서 차를 구하면 된다.
+
 ## K-NN
+### K-NN 특징
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/KnnClassification.svg/220px-KnnClassification.svg.png)
 - 단순 비교방법보다 뛰어난 첫번째 방법으로 하나만 비교하는 것이 아니라 인접한 k개의 Image를 찾는 것이다.
 - 최근접 알고리즘으로 가장 간단한 ML 알고리즘이다.
 - k개의 최근접 이웃 사이에서 가장 공통적인 항목에 할당되는 객체로 과반수 의결에 의해 분류한다. k가 커질수록 Outliner가 강인해주지고 경계가 부드러워진다.
@@ -31,29 +36,23 @@ SVM만큼 유명한 분류기로 SVM과 loss 함수가 다르다. Multiple class
 - 거리는 유클리드를 많이 사용한다.
 - k를 경험적으로 선택하는 방법은 부트스트랩이다.
 
-## Hyper parameter 개선을 위한 Validation set
-- k-nearest neighbor 분류기는 k를 정해줘야 한다. 이는 유효한 데이터set에 의해 튜닝되는 hyper parameter이다.
-- 머신러닝 알고리즘을 디자인할 때, 테스트 셋은 매우 귀한 리소스이고, 이론적으로는 실제로 알고리즘을 평가할 때인 맨 마지막 단 한 번을 제외하고는 절대 쳐다봐서는 안 된다.
-- 우리가 테스트 셋을 사용하여 Hyper parameter 들을 튜닝했다는 것은 곧 우리가 테스트 셋을 마치 학습 데이터셋(트레이닝 셋)처럼 사용한 것이고, 우리 모델의 테스트 셋에서의 성능은 실제로 다른 데이터에 적용할 때에 비해 너무 낙관적이게 되어버린다. 이것을 테스트 셋에 overfit이라고 한다.
-- 해결책1: 검증 셋(validation set) 으로 불리는, 약간 적은 수의 트레이닝 셋과 나머지로 나눈다. CIFAR-10 데이터셋을 예로 들면, 학습 이미지들 중에 49,000 장을 트레이닝 셋으로 삼고, 나머지 1,000 개를 검증으로 남겨둔다.
-- 해결책2: 교차 검증을 한다. 검증 Set을 바꿔가면서 검증한다. 보통 교차 검증보다 하나의 검증 셋을 정해놓는 것을 선호한다. 계산량이 많기때문이다.
-- Hyper parameter 개수가 매우 많다면, 검증 데이터셋의 크기를 늘리는게 좋다.
-
-## K-NN의 장점과 한계
+### K-NN의 장점과 한계
 - 학습시에는 계산량이 거의 없고 구현이 쉽다. 그냥 저장만 하면 된다. 그런데 테스트시에는 계산량이 많이 진다. 때문에 차원이 낮은 데이터의 경우에 좋다. 이미지는 매우 고차원이라 적합하지 않다.
 - k-Nearest Neighbor는 이런 상황에 불리하다. Shift된 사진 눈코입이 없는 사진, 어두운 사진. 이미지의 클래스보다 배경이나 이미지의 전체적인 색깔 분포 등에 더 큰 영향을 받기 때문이다.
 - 고양이를 인지하는 것이 여려운이유는 RGB 데이터가 많고 자세, 밝기, 각도에 따라 그 데이터가 너무 크게 변화하기 때문이다.
 - 현재의 kNN 분류기가 너무 느리다면, 이를 가속하기 위해 Approximate Nearest Neighbor 라이브러리 (e.g. FLANN)를 사용하는 것을 고려해보라. (성능은 조금 떨어질 것이다)
 - Linear classification는 Circle model에 약하다. wx+b 구조는 1차 함수와 비슷. gray scale의 경우는 사용 하기 힘들다.
 
-# Linear classifier
-## Image classfication에서 3가지 작업
-- Score function: 선형 함수, Pixel data를 넣으면 class score로 계산해주는 파라미터화된(w) 함수
+# Classifier
+## Linear Classifier
+- Machine learning의 일종으로 확률적 분류 방법이다.
+- Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 비슷한 방법을 취하지만 훨씬 복잡하다.
+## Linear Classifier 구성
+- Score function: 선형 함수, Pixel data를 넣으면 class score로 계산해주는 파라미터화된(w) 함수, 복잡한 구조로 계속 변경됨.
 - Loss function: 특정 paraemter를 적용시켜 score함수를 만들었을 때 실제 데이터와 얼마나 차이나는 가에 대해 parameter의 정확도를 측정하는 함수 (SVM/Softmax)
-- 그리고 세번째 작업, **Optimazation** 은 Loss 함수가 최소화되는 최적은 Parameter값을 찾는 것.
-- Score function은 복잡한 형태로 확장되지만 Loss와 Optimization은 거의 변화가 없다.
+- Optimazation: 은 Loss 함수가 최소화되는 최적은 Parameter값을 찾는 것.
 
-## Score 함수
+### Score 함수
 ![](http://aikorea.org/cs231n/assets/imagemap.jpg)
 이미지 픽셀들을 펼쳐서 열 벡터로 만들고 각 클래스에 대해 행렬곱을 수행하면 스코어 값을 얻을 수 있다
 예시는 잘못된 W에 의해 잘못된 판단을 하고 있다는 것을 알고 있자.
@@ -65,20 +64,20 @@ SVM만큼 유명한 분류기로 SVM과 loss 함수가 다르다. Multiple class
 
 ![](http://aikorea.org/cs231n/assets/wb.jpeg)
 
-## Loss 함수 시각화
+### Loss 함수 시각화
 예를 들어 CIFAR-10의 경우, 파라미터(parameter/weight) 행렬은 크기가 [10 x 3073]이고 총 30,730개의 파라미터(parameter/weight)가 있다. 무작위로 뽑은 방향 W1을 잡고, 이 방향을 따라 가면서 손실함수(loss function)를 계산해본다. 'L(W+aW1)' 이 과정에서 a 값을 x축, 손실함수(loss function) 값을 y축에 놓고 간단한 그래프를 그릴 수 있다.
 
 ![](http://aikorea.org/cs231n/assets/svm_one.jpg)
 
 미분 불가능한 손실함수의 경우 subgradient가 존재하고 이를 gradient로 대체한다.
 
-## 최적화: Loss를 줄이기 위한 전략 3가지
+### 최적화: Loss를 줄이기 위한 전략 3가지
 - SVM의 Loss 함수의 볼록 함수이기 때문에 이상하게 생각할지 모른다. 몇가지 전략을 살펴보자.
 - **첫번째**, Random search: 무작위 탐색 w값을 랜덤하게 추출하여 비교한다. loss가 가장 적을 때는 기억하는 간단한 min알고리즘이다.
 - **두번째**, Random local search: 무작위 국소 탐색, 임의의 W에서 시작하여 또다른 임의의 방향으로 살짝 움직였을 때 Loss를 비교하여 거기로 움직이고 다시 탐색함.
 - **세번째**, Following Gradient: 그라디언트 따라가기, 손실함수는 gradient와 관계가 있다. 모든 차원을 하나씩 돌아가면서 그 방향으로 작은 변화 h를 줬을 때, 손실함수(loss function)의 값이 얼마나 변하는지를 구해서, 그 방향의 편미분 값을 계산한다.
 
-## Gradient 계산법 2가지
+## Gradient 계산법 2가지 (미분)
 1. 수치적(Numerical) gradient: 느리고 근사값이지만 쉬운 방법
   - 수식을 이용하여 그라디언트(gradient)를 수치적으로 계산
   - 임의의 함수 f에 입력값으로 넣을 벡터 x 가 주어졌을 때, x에서 f의 gradient)를 계산해주는 범용 함수가 있다.
