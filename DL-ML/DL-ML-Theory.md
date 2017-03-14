@@ -44,7 +44,7 @@
 - Linear classification는 Circle model에 약하다. wx+b 구조는 1차 함수와 비슷. gray scale의 경우는 사용 하기 힘들다.
 
 # Classifier
-## Linear Classifier
+## Linear Classifier 정의
 - Machine learning의 일종으로 확률적 분류 방법이다.
 - Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 이와 비슷한 방법을 취하지만 훨씬 복잡하다.
 ## Linear Classifier 구성
@@ -52,7 +52,7 @@
 2. Loss function: 특정 paraemter를 적용시켜 score함수를 만들었을 때 실제 데이터와 얼마나 차이나는 가에 대해 parameter의 정확도를 측정하는 함수 (SVM/Softmax)
 3. Optimazation: 은 Loss 함수가 최소화되는 최적은 Parameter값을 찾는 것.
 
-### Score 함수
+### Score function
 ![](http://aikorea.org/cs231n/assets/imagemap.jpg)  
 이미지 픽셀들을 펼쳐서 세로 벡터로 만들고 w 벡터와 행렬곱을 수행하고 Bias를 더하면 위와 같은 스코어 값을 얻을 수 있다
 
@@ -62,27 +62,27 @@
 ![](http://aikorea.org/cs231n/assets/wb.jpeg)  
 앞으로 내용을 전개해 나갈 때 두 가지 파라미터를 (bias b와 weight W) 매번 동시에 고려해야 한다면 표현이 번거로워진다. 흔히 사용하는 트릭은 이 두 파라미터들을 하나의 행렬로 합치고, xixi를 항상 11의 값을 갖는 한 차원 - 디폴트 bias 차원 - 을 늘리는 방식이다. 이 한 차원 추가하는 것으로, 새 스코어 함수는 행렬곱 한 번으로 계산이 가능해진다.
 
-### Loss 함수
+### Loss function
 CIFAR-10 데이터 셋의 경우, 파라미터(parameter/weight) 행렬은 크기가 [10 x 3073]이고 총 30,730개의 파라미터(parameter/weight)가 있다. 무작위로 뽑은 방향 W1을 잡고, 이 방향을 따라 가면서 손실함수(loss function)를 계산해본다. 'L(W+aW1)' 이 과정에서 a 값을 x축, 손실함수(loss function) 값을 y축에 놓고 간단한 그래프를 그릴 수 있다.
 
 ![](http://aikorea.org/cs231n/assets/svm_one.jpg)  (시각화된 Loss)
 
 미분 불가능한 손실함수의 경우 subgradient가 존재하고 이를 gradient로 대체한다.
 
-### 최적화
+### Optimazation
 1. Random search: 무작위 탐색 w값을 랜덤하게 추출하여 비교한다. loss가 가장 적을 때는 기억하는 간단한 min알고리즘이다.
-2. Random local search: 무작위 국소 탐색, 임의의 W에서 시작하여 또다른 임의의 방향으로 살짝 움직였을 때 Loss를 비교하여 거기로 움직이고 다시 탐색함.
-3. Following Gradient: 그라디언트 따라가기, 손실함수는 gradient와 관계가 있다. 모든 차원을 하나씩 돌아가면서 그 방향으로 작은 변화 h를 줬을 때, 손실함수(loss function)의 값이 얼마나 변하는지를 구해서, 그 방향의 편미분 값을 계산한다.
+2. Random local search: 무작위 국소 탐색, 임의의 W에서 시작하여 또다른 임의의 방향으로 살짝 움직였을 때 Loss를 비교하면서 이동한다.
+3. Following Gradient: 그라디언트 따라가기, 손실 함수는 gradient와 관계가 있다. 모든 차원을 하나씩 돌아가면서 그 방향으로 작은 변화 h를 줬을 때, 손실함수(loss function)의 값이 얼마나 변하는지를 구해서, 그 방향의 편미분 값을 계산한다.
 
-## Gradient 계산법 2가지 (미분)
+### Gradient 계산법 2가지 (미분)
 1. 수치적(Numerical) gradient: 느리고 근사값이지만 쉬운 방법
   - 수식을 이용하여 그라디언트(gradient)를 수치적으로 계산
-  - 임의의 함수 f에 입력값으로 넣을 벡터 x 가 주어졌을 때, x에서 f의 gradient)를 계산해주는 범용 함수가 있다.
+  - 임의의 함수 f에 입력값으로 넣을 벡터 x가 주어졌을 때, x에서 f의 gradient를 계산해주는 범용 함수가 있다.
   - h가 0으로 수렴할 때의 극한값이 그라디언트(gradient)의 수학적으로 정의다.
   - 방향은 gradient로 알 수 있지만 얼마만큼 가야하는 가는 알 수 없는데 그것을 Step 크기라고 명명하고 Hyper parameter로 생각하면 된다. 이것을 학습 속도라고도 할 수 있다. 이 parameter는 결과에 영향을 많이 미치기 때문에 결정하기 까다롭다.
   - Step size가 너무 큰 값을 가지게 되면 좋지 않을 수도 있다. 비유컨데 눈 가리고 올라가는데 큰 걸음으로 성큼성큼 올라가면 도랑에 빠질 수 있다.
-  - 단점은 gradient를 수치적으로 계산하는 데 드는 비용은 파라미터(parameter/weight)의 수에 따라 선형적으로 늘어난다. 모든 parameter를 검사해야하기 때문인데 계산이 비효율적이다. 신경망(neural networks)들은 수천만개의 파라미터(parameter/weight)의 경우 문제가 심각해진다.
-  - 또다른 단점은 h가 0으로 수렴할 때가 극한값인데, 여기서는 그냥 작은 “h”값을 쓰기 때문에 근사값이라는 것이다.  
+  - 단점은 gradient를 수치적으로 계산하는 데 드는 비용은 파라미터(parameter/weight)의 수에 따라 선형적으로 늘어난다. 그리고 모든 parameter를 검사해야하기 때문인데 계산이 비효율적이다. 신경망(neural networks)들은 수천만개의 파라미터(parameter/weight)의 경우 문제가 심각해진다.
+  - 또다른 단점은 h가 0으로 수렴할 때가 극한값인데, 여기서는 적절히 작은 “h”값을 쓰기 때문에 근사값이다.  
   ![](/images/2017/01/Selection_001.png)
     ```javascript
     var x = -2, y = 3;
@@ -110,13 +110,13 @@ CIFAR-10 데이터 셋의 경우, 파라미터(parameter/weight) 행렬은 크�
     ```
 
 2. 해석적 (Analytic) gradient: 빠르고 정확하지만 **미분** 이 필요하고 실수하기 쉬운 방법
-  - Numerical보다 더 쉽고 훨씬 빠르게 기울기를 계산하는 방법이다. 수학적 공식을 활용한다.
+  - Numerical보다 더 쉽고 훨씬 빠르게 기울기를 계산하는 방법이다. **수학적 공식** 을 활용한다.
   - Analytic방법은 입력 값을 조작할 필요가 없다. 수학(미분)으로 공식을 유도할 수 있습니다.
-  - 미적분을 이용한 gradient: 미분을 이용해 해석적으로 gradient를 구하는 방법으로 근사치가 아닌 정확한 수식을 사용하기 때문에 계산이 빠르다. 하지만 수치적으로 구한 gradient과 다르게 구현하는 데 실수하기 쉽다.
+  - 미분을 이용해 해석적으로 gradient를 구하는 방법으로 근사치가 아닌 정확한 수식을 사용하기 때문에 계산이 빠르다. 하지만 수치적으로 구한 gradient과 다르게 구현하는 데 실수하기 쉽다.
   - 뉴럴 네트워크 라이브러리는 모두 공식 기울기를 계산한다. 하지만 수치적 gradient값과 비교를 해야하는 과정이 필요한데 이것을 gradient check라고 한다.
   - 해석적 gradient는 간단한 공식을 유도할 때나 쉽고 거대하고 복잡한 식에는 빠르지 않을 것 같다고 생각하기 쉽다. 하지만 복잡한 저체회로와 상관없이 각각의 게이트는 스스로의 문제에만 집중한다는 것 알 수 있다. 전체 회로와 큰 연관성이 없다는 말이다.
 
-## Gradient 하강 (descent)
+## Gradient descent (기울기 하강)
 ### 단순 하강
 ```
 while True:
