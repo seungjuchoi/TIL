@@ -53,27 +53,26 @@
 3. Optimazation: 은 Loss 함수가 최소화되는 최적은 Parameter값을 찾는 것.
 
 ### Score 함수
-![](http://aikorea.org/cs231n/assets/imagemap.jpg)
+![](http://aikorea.org/cs231n/assets/imagemap.jpg)  
 이미지 픽셀들을 펼쳐서 세로 벡터로 만들고 w 벡터와 행렬곱을 수행하고 Bias를 더하면 위와 같은 스코어 값을 얻을 수 있다
 
-![](http://aikorea.org/cs231n/assets/pixelspace.jpeg)
+![](http://aikorea.org/cs231n/assets/pixelspace.jpeg)  
 그림은 3개의 Score 함수를 표현한다. 그림에서 이 Score 함수를 f(x,y)=0 그래프라고 가정하게 되면 값이 음수일 경우와 양수일경우 두 경우를 나눌 수 있다.
 
-![](http://aikorea.org/cs231n/assets/wb.jpeg)
-앞으로 내용을 전개해 나갈 때 두 가지 파라미터를 (bias b와 weight W) 매번 동시에 고려해야 한다면 표현이 번거로워진다. 흔히 사용하는 트릭은 이 두 파라미터들을 하나의 행렬로 합치고, xixi를 항상 11의 값을 갖는 한 차원 - 디폴트 bias 차원 - 을 늘리는 방식이다. 이 한 차원 추가하는 것으로, 새 스코어 함수는 행렬곱 한 번으로 계산이 가능해진다
+![](http://aikorea.org/cs231n/assets/wb.jpeg)  
+앞으로 내용을 전개해 나갈 때 두 가지 파라미터를 (bias b와 weight W) 매번 동시에 고려해야 한다면 표현이 번거로워진다. 흔히 사용하는 트릭은 이 두 파라미터들을 하나의 행렬로 합치고, xixi를 항상 11의 값을 갖는 한 차원 - 디폴트 bias 차원 - 을 늘리는 방식이다. 이 한 차원 추가하는 것으로, 새 스코어 함수는 행렬곱 한 번으로 계산이 가능해진다.
 
-### Loss 함수 시각화
+### Loss 함수
 CIFAR-10 데이터 셋의 경우, 파라미터(parameter/weight) 행렬은 크기가 [10 x 3073]이고 총 30,730개의 파라미터(parameter/weight)가 있다. 무작위로 뽑은 방향 W1을 잡고, 이 방향을 따라 가면서 손실함수(loss function)를 계산해본다. 'L(W+aW1)' 이 과정에서 a 값을 x축, 손실함수(loss function) 값을 y축에 놓고 간단한 그래프를 그릴 수 있다.
 
-![](http://aikorea.org/cs231n/assets/svm_one.jpg)
+![](http://aikorea.org/cs231n/assets/svm_one.jpg)  (시각화된 Loss)
 
 미분 불가능한 손실함수의 경우 subgradient가 존재하고 이를 gradient로 대체한다.
 
 ### 최적화
-- SVM의 Loss 함수의 볼록 함수이기 때문에 이상하게 생각할지 모른다. Loss를 줄이기 위한 전략 3가지을 살펴 보자.
-- **첫번째**, Random search: 무작위 탐색 w값을 랜덤하게 추출하여 비교한다. loss가 가장 적을 때는 기억하는 간단한 min알고리즘이다.
-- **두번째**, Random local search: 무작위 국소 탐색, 임의의 W에서 시작하여 또다른 임의의 방향으로 살짝 움직였을 때 Loss를 비교하여 거기로 움직이고 다시 탐색함.
-- **세번째**, Following Gradient: 그라디언트 따라가기, 손실함수는 gradient와 관계가 있다. 모든 차원을 하나씩 돌아가면서 그 방향으로 작은 변화 h를 줬을 때, 손실함수(loss function)의 값이 얼마나 변하는지를 구해서, 그 방향의 편미분 값을 계산한다.
+1. Random search: 무작위 탐색 w값을 랜덤하게 추출하여 비교한다. loss가 가장 적을 때는 기억하는 간단한 min알고리즘이다.
+2. Random local search: 무작위 국소 탐색, 임의의 W에서 시작하여 또다른 임의의 방향으로 살짝 움직였을 때 Loss를 비교하여 거기로 움직이고 다시 탐색함.
+3. Following Gradient: 그라디언트 따라가기, 손실함수는 gradient와 관계가 있다. 모든 차원을 하나씩 돌아가면서 그 방향으로 작은 변화 h를 줬을 때, 손실함수(loss function)의 값이 얼마나 변하는지를 구해서, 그 방향의 편미분 값을 계산한다.
 
 ## Gradient 계산법 2가지 (미분)
 1. 수치적(Numerical) gradient: 느리고 근사값이지만 쉬운 방법
