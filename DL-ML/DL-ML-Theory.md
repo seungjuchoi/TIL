@@ -3,12 +3,11 @@
 
 # 개념 설명
 ## Distance 법
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/283px-Manhattan_distance.svg.png)
-    - L1 Distance: Manhattan (Blue line)  
-![](https://wikimedia.org/api/rest_v1/media/math/render/svg/4704625b5a645aae2cd0177cab7e8892b8f962bf)
-
-    - L2 Distance: **Euclidean** (Green line)  
-    ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/dc0281a964ec758cca02ab9ef91a7f54ac00d4b7)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/283px-Manhattan_distance.svg.png)  
+- L1 Distance: Manhattan (Blue line)  
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/4704625b5a645aae2cd0177cab7e8892b8f962bf)  
+- L2 Distance: **Euclidean** (Green line)  
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/dc0281a964ec758cca02ab9ef91a7f54ac00d4b7)
 
 ## Test set and Validation set
 - k-nearest neighbor 분류기에서 k는 유효한 데이터set에 의해 튜닝되는 Hyper parameter이다.
