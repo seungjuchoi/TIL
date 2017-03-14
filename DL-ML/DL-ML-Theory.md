@@ -1,37 +1,28 @@
-### 참고link
-- http://aikorea.org/cs231n/
-- http://karpathy.github.io/neuralnets/
-
-# History
-- 5억 4천년의 삼엽충이 눈을 가지면서 진화의 빅뱅이 일어남
-- 면이 아니라 선을 가지고 인식
-- 1966년이 CV의 생일, AI 연구소 설립 in MIT -> CV의 50주년
-
 # Intro
-- Deep learning의 중요한 점은 구조가 계층적이라는 것이다.
-- 인간의 vision은 복잡하다.하지만 하나씩 들여다 보자. 첫번째는 Edge image 선인식이다.두번째는 2(1/2)D, 마지막이 3D화이다.
-- Black&white filter 같은 얼굴인식이 생기고 속도가 굉장히 빠르게 발전했다.
-- 인류는 찾는 것이 아니라 그것이 무엇인지 인식하는 것에 집중(Feature)하고 있다. 호랑이인지 전체를 보기 전에 얼굴만 보고 혹은 꼬리만 보고 도망칠지 결정해야 했다.
-- Deep learning feature를 뽑아내는 것이 중요
 - Image-net 1.5milion  1000 object구분하는 것, 2012년에서는 CNN이 winner. 2012년 이후로는 모두 CNN위주가 된다. 이 분야에서 Back propergation의 본격적으로 쓰이기 시작했다.
 
-# Linear classifier
-- 선형 분류: Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 비슷한 방법을 취하지만 훨씬 복잡하다.
-- Softmax classifier: SVM만큼 유명한 분류기로 SVM과 loss 함수가 다르다. Multiple class의 일반화다. SVM과 달리 각 class마다 output을 scores로 다루는 데 좀더 직관적인 output을 주고 짧은 확률적 해석을 제공한다.
 
-# K-NN
-## CIFAR-10소개와 단순 비교방법
-- 간단하면서 유명한 이미지 분류 데이터셋 중의 하나 ![](http://aikorea.org/cs231n/assets/nn.jpg)
-- 두개의 이미지를 비교하는 간단한 방법은 빼는 것: 두 이미지가 똑같을 경우에는 결과가 0일 것이고, 두 이미지가 매우 다르다면 결과값이 클 것이다. 38.6%밖에 안됨
-  - L1 Distance: Manhattan
+# Classifier
+## Linear classifier
+- Machine learning의 일종으로 확률적 분류 방법이다.
+- Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 비슷한 방법을 취하지만 훨씬 복잡하다.
+## Softmax classifier
+SVM만큼 유명한 분류기로 SVM과 loss 함수가 다르다. Multiple class의 일반화다. SVM과 달리 각 class마다 output을 scores로 다루는 데 좀더 직관적인 output을 주고 짧은 확률적 해석을 제공한다.
 
-    ![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/283px-Manhattan_distance.svg.png)
-  - L2 Distance: **Euclidean**
+# 학습 알고리즘
+## 단순 비교
+- 두개의 이미지를 비교하는 간단한 방법은 빼는 것
+- 두 이미지가 똑같을 경우에는 결과가 0일 것이고, 두 이미지가 매우 다르다면 결과값이 클 것이다.  
+### Distance 법
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Manhattan_distance.svg/283px-Manhattan_distance.svg.png)
+    - L1 Distance: Manhattan (Blue line)  
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/4704625b5a645aae2cd0177cab7e8892b8f962bf)
 
+    - L2 Distance: **Euclidean** (Green line)  
     ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/dc0281a964ec758cca02ab9ef91a7f54ac00d4b7)
 
-## K-NN 정의
-- 위와 같은 단순 비교방법보다 뛰어난 첫번째 방법으로 하나만 비교하는 것이 아니라 인접한 k개의 Image를 찾는 것이다.
+## K-NN
+- 단순 비교방법보다 뛰어난 첫번째 방법으로 하나만 비교하는 것이 아니라 인접한 k개의 Image를 찾는 것이다.
 - 최근접 알고리즘으로 가장 간단한 ML 알고리즘이다.
 - k개의 최근접 이웃 사이에서 가장 공통적인 항목에 할당되는 객체로 과반수 의결에 의해 분류한다. k가 커질수록 Outliner가 강인해주지고 경계가 부드러워진다.
 - Instance-based learning: memory-based learning이라고도 함. memory에 저장된 instance를 기반으로 새로운 문제를 비교하는 방식, 따라서 모든 데이터를 기억해야 한다. 너무 많은 계산량을 요구하는 것과 모든 데이터를 저장하고 있어야하는 것이 K-NN의 대표적인 단점
@@ -39,7 +30,6 @@
 - 거리를 n이라고 가정하면 간단한 가중치 스키마는 1/n의 가중치를 주는 것이다.
 - 거리는 유클리드를 많이 사용한다.
 - k를 경험적으로 선택하는 방법은 부트스트랩이다.
-
 
 ## Hyper parameter 개선을 위한 Validation set
 - k-nearest neighbor 분류기는 k를 정해줘야 한다. 이는 유효한 데이터set에 의해 튜닝되는 hyper parameter이다.
