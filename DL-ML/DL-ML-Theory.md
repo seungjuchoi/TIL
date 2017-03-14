@@ -46,7 +46,7 @@
 # Classifier
 ## Linear Classifier
 - Machine learning의 일종으로 확률적 분류 방법이다.
-- Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 비슷한 방법을 취하지만 훨씬 복잡하다.
+- Score 함수와 Loss 함수를 통해 선형화 시킨다. 예를 들어 Image 같은 data를 2차원 좌표의 벡터나 점으로 매핑한다. Convolution Neural Network에서는 이와 비슷한 방법을 취하지만 훨씬 복잡하다.
 ## Linear Classifier 구성
 1. Score function: 선형 함수, Pixel data를 넣으면 class score로 계산해주는 파라미터화된(w) 함수, 복잡한 구조로 계속 변경됨.
 2. Loss function: 특정 paraemter를 적용시켜 score함수를 만들었을 때 실제 데이터와 얼마나 차이나는 가에 대해 parameter의 정확도를 측정하는 함수 (SVM/Softmax)
@@ -54,25 +54,23 @@
 
 ### Score 함수
 ![](http://aikorea.org/cs231n/assets/imagemap.jpg)
-이미지 픽셀들을 펼쳐서 열 벡터로 만들고 각 클래스에 대해 행렬곱을 수행하면 스코어 값을 얻을 수 있다
-예시는 잘못된 W에 의해 잘못된 판단을 하고 있다는 것을 알고 있자.
+이미지 픽셀들을 펼쳐서 세로 벡터로 만들고 w 벡터와 행렬곱을 수행하고 Bias를 더하면 위와 같은 스코어 값을 얻을 수 있다
 
 ![](http://aikorea.org/cs231n/assets/pixelspace.jpeg)
-빨간색 선의 오른쪽에 있는 점들은 양의 (그리고 선형적으로 증가하는) 스코어 값을 가질 것이고, 왼쪽의 점들은 음의 (그리고 선형적으로 감소하는) 스코어 값을 가질 것이다.
-
-앞으로 내용을 전개해 나갈 때 두 가지 파라미터를 (bias b와 weight W) 매번 동시에 고려해야 한다면 표현이 번거로워진다. 흔히 사용하는 트릭은 이 두 파라미터들을 하나의 행렬로 합치고, xixi를 항상 11의 값을 갖는 한 차원 - 디폴트 bias 차원 - 을 늘리는 방식이다. 이 한 차원 추가하는 것으로, 새 스코어 함수는 행렬곱 한 번으로 계산이 가능해진다
+그림은 3개의 Score 함수를 표현한다. 그림에서 이 Score 함수를 f(x,y)=0 그래프라고 가정하게 되면 값이 음수일 경우와 양수일경우 두 경우를 나눌 수 있다.
 
 ![](http://aikorea.org/cs231n/assets/wb.jpeg)
+앞으로 내용을 전개해 나갈 때 두 가지 파라미터를 (bias b와 weight W) 매번 동시에 고려해야 한다면 표현이 번거로워진다. 흔히 사용하는 트릭은 이 두 파라미터들을 하나의 행렬로 합치고, xixi를 항상 11의 값을 갖는 한 차원 - 디폴트 bias 차원 - 을 늘리는 방식이다. 이 한 차원 추가하는 것으로, 새 스코어 함수는 행렬곱 한 번으로 계산이 가능해진다
 
 ### Loss 함수 시각화
-예를 들어 CIFAR-10의 경우, 파라미터(parameter/weight) 행렬은 크기가 [10 x 3073]이고 총 30,730개의 파라미터(parameter/weight)가 있다. 무작위로 뽑은 방향 W1을 잡고, 이 방향을 따라 가면서 손실함수(loss function)를 계산해본다. 'L(W+aW1)' 이 과정에서 a 값을 x축, 손실함수(loss function) 값을 y축에 놓고 간단한 그래프를 그릴 수 있다.
+CIFAR-10 데이터 셋의 경우, 파라미터(parameter/weight) 행렬은 크기가 [10 x 3073]이고 총 30,730개의 파라미터(parameter/weight)가 있다. 무작위로 뽑은 방향 W1을 잡고, 이 방향을 따라 가면서 손실함수(loss function)를 계산해본다. 'L(W+aW1)' 이 과정에서 a 값을 x축, 손실함수(loss function) 값을 y축에 놓고 간단한 그래프를 그릴 수 있다.
 
 ![](http://aikorea.org/cs231n/assets/svm_one.jpg)
 
 미분 불가능한 손실함수의 경우 subgradient가 존재하고 이를 gradient로 대체한다.
 
-### 최적화: Loss를 줄이기 위한 전략 3가지
-- SVM의 Loss 함수의 볼록 함수이기 때문에 이상하게 생각할지 모른다. 몇가지 전략을 살펴보자.
+### 최적화
+- SVM의 Loss 함수의 볼록 함수이기 때문에 이상하게 생각할지 모른다. Loss를 줄이기 위한 전략 3가지을 살펴 보자.
 - **첫번째**, Random search: 무작위 탐색 w값을 랜덤하게 추출하여 비교한다. loss가 가장 적을 때는 기억하는 간단한 min알고리즘이다.
 - **두번째**, Random local search: 무작위 국소 탐색, 임의의 W에서 시작하여 또다른 임의의 방향으로 살짝 움직였을 때 Loss를 비교하여 거기로 움직이고 다시 탐색함.
 - **세번째**, Following Gradient: 그라디언트 따라가기, 손실함수는 gradient와 관계가 있다. 모든 차원을 하나씩 돌아가면서 그 방향으로 작은 변화 h를 줬을 때, 손실함수(loss function)의 값이 얼마나 변하는지를 구해서, 그 방향의 편미분 값을 계산한다.
